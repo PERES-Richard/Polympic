@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get and send events to Polympic</title>
+</head>
+<body>
+    <button id="addEventToPolympic">Envoyer un événement à polympic</button>
+    <br />
+    Evénements envoyés à polympic:
+    <br />
+    <div id="container"></div>
+    <br /><br />
+    <button id="getEventFromPolympic">Récupérer les événements de polympic</button>
+    <br />
+    Evénements récupérés de polympic:
+    <br />
+    <div id="container2"></div>
+    <br /><br />
+    Evénements recherchés sur polympic:
+    <br />
+    <input type="text" id="input" /><button id="searchEvent">Rechercher</button>
+    <div id="container3"></div>
+    <script>
+        let params = {
+            "title": "MyGigaEvent",
+            "provider": "GorillaBox",
+            "description": "Fan events",
+            "latitude": 43.6155245+((Math.random()*5)/1000),
+            "longitude": 7.0721932+((Math.random()*5)/1000),
+            "startDate": "2020/01/20 12:30",
+            "endDate": "2020/01/20 13:00"
+        };
+        
+        document.getElementById("addEventToPolympic").addEventListener("click", function (e) {
+            params.latitude = 43.6155245+((Math.random()*5)/1000);
+            params.longitude = 7.0721932+((Math.random()*5)/1000);
+
+            $.ajax({
+                url: 'http://localhost:80/external-event',
+                type: 'POST',
+                data: params,
+                headers: {
+                    cont: "application/json"
+                },
+                success: function (data) {
+                   document.getElementById("container").innerHTML += data.title + " - " + data.id + "<br />";
+                }
+            });
+        });
+    
+        document.getElementById("getEventFromPolympic").addEventListener("click", function (e) {
+            $.ajax({
+                url: 'http://localhost:80/external-event',
+                type: 'GET',
+                data: params,
+                headers: {
+                    cont: "application/json"
+                },
+                success: function (data) {
+                    let container = document.getElementById("container2");
+                    container.innerHTML = "";
+                    if(data.length === 0){
+                        container.innerHTML = "No event";
+                        return;
+                    }
+                    data.forEach(function(e){
+                        container.innerHTML += e.title + " - " + e.id +  "<br />";
+                    });
+                }
+            });
+        });
+
+        document.getElementById("searchEvent").addEventListener("click", function (e) {
+            $.ajax({
+                url: 'http://localhost:80/external-event/search/'+document.getElementById("input").value,
+                type: 'GET',
+                data: params,
+                headers: {
+                    cont: "application/json"
+                },
+                success: function (data) {
+                    let container = document.getElementById("container3");
+                    container.innerHTML = "";
+                    if(data.length === 0){
+                        container.innerHTML = "No event";
+                        return;
+                    }
+                    data.forEach(function(e){
+                        container.innerHTML += e.title + " - " + e.id +  "<br />";
+                    });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+
+</html>

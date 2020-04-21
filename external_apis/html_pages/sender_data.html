@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server send data</title>
+    <script src="http://wzrd.in/standalone/uuid%2Fv1@latest"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div>External API with data</div>
+    
+    <br>
+
+    <button id="randomize">Randomize positions</button>
+    <button id="send">Send data to polympic</button>
+
+    <ul id="container"></ul>
+    
+    
+    <script type="text/javascript">
+        let data = []; 
+
+        for(let i = 0; i < 20; i++) {
+            data.push(
+            {
+                uuid: uuidv1(),
+                latitude : 43.6155245+((Math.random()*5)/1000),
+                longitude: 7.0721932+((Math.random()*5)/1000)
+            });
+        }
+
+        function randomize() {
+            for(let i = 0; i < 20; i++) {
+                data[i].latitude = 43.6155245+((Math.random()*5)/1000);
+                data[i].longitude = 7.0721932+((Math.random()*5)/1000)
+            }
+        }
+
+        function drawData() {
+            let draw = '';
+            data.forEach( d => {
+                draw += '<li> UUID : ' + d.uuid + ', LATITUDE : ' + d.latitude + ', LONGITUDE : ' + d.longitude + '</li>';
+            })
+            document.getElementById('container').innerHTML = draw;
+        }
+
+        drawData();
+
+        document.getElementById("randomize").addEventListener("click", function(e){
+            randomize();
+            drawData();
+        });
+
+        document.getElementById("send").addEventListener("click", function(e){
+            e.preventDefault();
+            let params = {
+                service: "externalAPI",
+                users: data
+            };
+            $.ajax({
+                url: 'http://localhost:80/service_api/set_users',
+                type: 'POST',
+                data: params,
+                headers: {
+                    cont: "application/json"
+                },
+                success: function(data){
+                    console.log(JSON.stringify(params));
+                }
+            });
+        });
+
+
+    </script>
+</body>
+</html>

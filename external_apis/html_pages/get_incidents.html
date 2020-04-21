@@ -1,0 +1,60 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follow list of incidents</title>
+</head>
+
+<body>
+
+    <button id="get_incident">Start looking for incidents</button>
+
+    <br>
+
+    <ul id="container">
+
+    </ul>
+
+    <script>
+        let params = {
+            "route": "http://10.212.105.254:4000/add_incident",
+            "longitude": 12,
+            "latitude": 2,
+            "name": "test-api"
+        };
+        
+        document.getElementById("get_incident").addEventListener("click", function (e) {
+            $.ajax({
+                url: 'http://localhost:80/external-security',
+                type: 'POST',
+                data: params,
+                headers: {
+                    cont: "application/json"
+                },
+                success: function (data) {
+                    let list = document.getElementById("container");
+                    let string_html = "";
+                    setInterval(() => {
+                        $.ajax({
+                            url: 'http://10.212.105.254:4000/get_incidents',
+                            type: 'GET',
+                            headers: {
+                                cont: "application/json"
+                            }, success: function (data) {
+                                string_html = "";
+                                data.forEach(element => {
+                                    string_html += "<li> Longitude : " + element.longitude + " Latitude : " + element.latitude + " </li>";
+                                });
+                                list.innerHTML = string_html;
+                        }
+                    })}, 1000);
+                }
+            });
+        });
+    
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+
+</html>

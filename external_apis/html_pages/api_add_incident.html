@@ -1,0 +1,55 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Report Polympic Incident</title>
+    </head>
+    <body>
+        <button id="locate">Me localiser</button>
+        <form id="form">
+            <p>Latitude : <input type="text" required id="latitude"></p>
+            <p>Longitude : <input type="text" required id="longitude"></p>
+            <button id="send">Reporter un incident</button>
+        </form>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            let latitude = document.getElementById("latitude");
+            let longitude = document.getElementById("longitude");
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                    console.log(navigator.geolocation);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+
+            function showPosition(position){
+                latitude.value = position.coords.latitude;
+                longitude.value = position.coords.longitude;
+            }
+
+            document.getElementById("locate").addEventListener("click", function(){
+                getLocation();
+            });
+
+            document.getElementById("form").addEventListener("submit", function(e){
+                e.preventDefault();
+                let params = {
+                    "latitude": parseFloat(latitude.value),
+                    "longitude": parseFloat(longitude.value)
+                };
+                $.ajax({
+                    url: 'http://localhost:80/anonymous-incident',
+                    type: 'POST',
+                    data: params,
+                    success: function(data){
+                        alert(data);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

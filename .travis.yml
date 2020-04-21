@@ -1,0 +1,24 @@
+language: node_js
+
+node_js:
+  - "node"
+
+branches:
+  only:
+    - master
+    - dev
+    - backend
+
+services:
+  - docker
+
+before_script:
+  - docker-compose up -d --build db-test
+  - cd ./back
+  - npm i
+
+script:
+  - npm run test:cov
+
+after_script:
+  - docker-compose down

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>AL2</groupId> <!-- CHANGE ME -->
+    <artifactId>Polympic</artifactId> <!-- CHANGE ME -->
+    <version>0.1-SNAPSHOT</version> <!-- CHANGE ME -->
+
+    <name>nodejs-maven</name>
+    <description>Demo project for Spring Boot</description>
+    
+    <dependencies>
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>3.0.0</version>
+
+                <configuration>
+                    <configFolder>${project.basedir}/test/resources</configFolder>
+                    <dataFolder>${project.basedir}/test/resources/data</dataFolder>
+                    <resultsFolder>${project.basedir}/target/gatling/results</resultsFolder>
+                    <bodiesFolder>${project.basedir}/test/resources/bodies</bodiesFolder>
+                    <simulationsFolder>${project.basedir}/test/simulations</simulationsFolder>
+                    <runDescription>Gatling tests</runDescription>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

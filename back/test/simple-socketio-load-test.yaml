@@ -1,0 +1,25 @@
+config:
+  target: "ws://localhost:3001/user"
+  socketio:
+    transports: ["websocket"]
+  phases:
+    - duration: 10 # Run scenario for 10 seconds
+      arrivalCount: 1000 # Create 20 virtual users per scenario
+      name: "User send their position"
+  processor: "./my-function.js"
+scenarios:
+  - engine: "socketio"
+    flow:
+      - function: "generateRandomData"
+      - loop:
+        - emit:
+            channel: "sendCoordinates"
+            data: {"uuid": "{{ uuid }}", "longitude": "{{ longitude }}", "latitude": "{{ latitude }}"}
+            capture:
+            response:
+              channel: "sendCoordinates"
+              data: "OK"
+        - think: 1
+        count: 10
+      - think: 1
+      

@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: ps7
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+  db-test:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: ps7-test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+  nest:
+    build: ./back
+    restart: always
+    ports:
+      - "3000"
+    depends_on:
+      - db
+      - db-test
+    environment:
+      DATABASE_HOST: db
+      DATABASE_TEST_HOST: db-test
+  nginx:
+    build: ./nginx
+    depends_on:
+      - nest
+    ports:
+      - "80:80"
+  publisher:
+    build: ./publisher
+    depends_on:
+      - nest
+    links:
+      - nest
+    ports:
+    - "9428:9428"
