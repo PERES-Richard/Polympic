@@ -1,7 +1,7 @@
 import {DeleteResult, EntityRepository, Repository} from "typeorm";
 
 import { User } from "./user.entity";
-import { CreateUserDto, RangeDto } from "./dto";
+import { CreateUserDto } from "./dto";
 import { InternalServerErrorException } from "@nestjs/common";
 
 @EntityRepository(User)

@@ -5,6 +5,10 @@ import {CreateIncidentDto} from "./dto/create-incident.dto";
 import {Incident} from "./incident.entity";
 import {ExternalSecurityService} from "../api/external-security/external-security.service";
 
+/**
+ * this service use incident repository and external security service to manage incidents
+ */
+
 @Injectable()
 export class IncidentService {
   constructor(

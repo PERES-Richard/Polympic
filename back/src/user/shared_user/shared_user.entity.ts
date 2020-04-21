@@ -1,5 +1,9 @@
-import { BaseEntity, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, PrimaryColumn, Entity } from "typeorm";
-import { ServiceApi } from "../../api/service_api/service_api.entity";
+import { BaseEntity, Column, ManyToOne, PrimaryColumn, Entity } from 'typeorm';
+import { ServiceApi } from '../../api/service_api/service_api.entity';
+
+/**
+ * a shared user is a user got from external services
+ */
 
 @Entity()
 export class SharedUser extends BaseEntity {

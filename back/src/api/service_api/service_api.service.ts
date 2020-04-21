@@ -7,6 +7,9 @@ import { CreateUserDto } from '../../user/user/dto';
 import { SharedUserRepository } from '../../user/shared_user/shared_user.repository';
 import { UserFacade } from '../../gateway/user/user.facade';
 
+/**
+ * This service use shared user and service api repository to manage shared users and database
+ */
 @Injectable()
 export class ServiceApiService {
     constructor(
@@ -20,6 +23,11 @@ export class ServiceApiService {
 
     private readonly httpService: HttpService = new HttpService;
 
+    /**
+     * Allow a service to add some external users
+     * @param serviceName the service that give users
+     * @param users to add
+     */
     async setUsers(serviceName: string, users: CreateUserDto[]) {
         let service = await this.getOrAddService(serviceName);
         let tempUsersToAdd = users.map(v => ({ ...v, service: service }));
@@ -43,6 +51,13 @@ export class ServiceApiService {
         return addedUsers;
     }
 
+    /**
+     * TODO
+     * @param serviceName
+     * @param userUuid
+     * @param duration
+     * @param address
+     */
     async addSharedUser(serviceName: string, userUuid: string, duration: number, address: string){
         let MAX_DURATION = 30;
         if(duration > MAX_DURATION){
@@ -63,6 +78,10 @@ export class ServiceApiService {
         return user;
     }
 
+    /**
+     * send coorinates of an user to an external service
+     * @param user
+     */
     async sendCoordinatesToService(user: UserFacade){
         let sharedUser = await this.sharedUserRepository.findOne({uuid: user.uuid});
         if(!sharedUser){
@@ -79,10 +98,13 @@ export class ServiceApiService {
             console.debug(x);
         }, (error => {
             console.debug("URL has a problem");
-        }));;
-
+        }));
     }
 
+    /**
+     * if a service does not exist we can add id
+     * @param serviceName
+     */
     async getOrAddService(serviceName: string): Promise<ServiceApi> {
         let query = this.serviceApiRepository
             .createQueryBuilder('service_api')

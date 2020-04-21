@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
-import { CreateUserDto, RangeDto } from './dto';
+import { CreateUserDto } from './dto';
 import {DeleteResult} from "typeorm";
 import {OrganizerGateway} from "../../gateway/organizer/organizer.gateway";
 import {ServiceApiService} from "../../api/service_api/service_api.service";

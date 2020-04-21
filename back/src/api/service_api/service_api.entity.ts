@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from 'typeorm';
 import { User } from '../../user/user/user.entity';
 import { SharedUser } from '../../user/shared_user/shared_user.entity';
 import {ApiProperty} from "@nestjs/swagger";

@@ -1,5 +1,5 @@
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { UserService } from './user.service';
 
 
 @Injectable()

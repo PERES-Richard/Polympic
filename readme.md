@@ -11,7 +11,15 @@ Polympic is a mobile app that allow users to see events near them on a map. The 
 
 [React Native](https://facebook.github.io/react-native/) is used for the client/frontend side part
 
+[Docker](https://www.docker.com/) is used to deploy load balancer and servers
+
+[NGINX](https://www.nginx.com/) as a load balancer
+
 [Gatling](https://gatling.io/), [Locust](https://locust.io/) and [Artillery](https://artillery.io/) are used for load/stress tests
+
+[Travis](https://travis-ci.org/) as a continuous integration tool
+
+[Swagger](https://docs.nestjs.com/recipes/swagger) to document api
 
 ## Quick Start
 
@@ -62,7 +70,7 @@ On your phone, open the app (dismiss any error/warning), shake it until the debu
 
   ### Bugs React Native
 - If regex bug :
-	Change file  "node_modules/metro-config/src/defaults/black-list.js"
+	Change file  "node_modules/metro-config/src/defaults/blacklist.js"
 		```javascript
 		var sharedBlacklist = [
 		  /node_modules[\/\\]react[\/\\]dist[\/\\].*/,

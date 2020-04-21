@@ -1,12 +1,14 @@
 import {HttpService, Injectable, InternalServerErrorException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-
 import {ExternalSecurityRepository} from "./external-security.repository";
 import {CreateExternalSecurityDto} from "./dto/create-external-security.dto";
 import {ExternalSecurityEntity} from "./external-security.entity";
 import {AnonymousIncident} from "../anonymous-incident/anonymous-incident.entity";
 import {Incident} from "../../incident/incident.entity";
 
+/**
+ * This service is use the repository to manage the external security entities
+ */
 @Injectable()
 export class ExternalSecurityService {
   constructor(

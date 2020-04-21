@@ -2,8 +2,10 @@ import {Body, Controller, Post, ValidationPipe} from '@nestjs/common';
 import {IncidentService} from "./incident.service";
 import {CreateIncidentDto} from "./dto/create-incident.dto";
 import {ApiCreatedResponse} from "@nestjs/swagger";
-import {User} from "../user/user/user.entity";
-import {Incident} from "./incident.entity";
+
+/**
+ * the default route to manage incidents
+ */
 
 @Controller('incident')
 export class IncidentController {

@@ -1,8 +1,8 @@
-import { Controller, Post, Body, Get, HttpService, InternalServerErrorException, ValidationPipe, BadRequestException } from '@nestjs/common';
-import { ServiceApiService } from './service_api.service';
-import { ApiCreatedResponse } from "@nestjs/swagger";
+import {BadRequestException, Body, Controller, InternalServerErrorException, Post} from '@nestjs/common';
+import {ServiceApiService} from './service_api.service';
+import {ApiCreatedResponse} from "@nestjs/swagger";
 import {User} from "../../user/user/user.entity";
-import { SetUsersRequestDto, RequestUserPositionDto } from './dto';
+import {RequestUserPositionDto, SetUsersRequestDto} from './dto';
 
 @Controller('service_api')
 export class ServiceApiController {
@@ -30,7 +30,6 @@ export class ServiceApiController {
         type: User,
     })
     async shareUser(@Body() input: RequestUserPositionDto){
-        let result = this.serviceApiService.addSharedUser(input.service, input.uuid, input.duration, input.address);
-        return result;
+        return this.serviceApiService.addSharedUser(input.service, input.uuid, input.duration, input.address);
     }
 }

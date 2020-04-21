@@ -5,11 +5,11 @@ import { UserModule } from './user/user/user.module';
 import { OrganizerGateway } from './gateway/organizer/organizer.gateway';
 import { UserGateway } from './gateway/user/user.gateway';
 import { ServiceApiModule } from './api/service_api/service_api.module';
-import {IncidentModule} from "./incident/incident.module";
-import {AnonymousIncidentModule} from "./api/anonymous-incident/anonymous-incident.module";
+import {IncidentModule} from './incident/incident.module';
+import {AnonymousIncidentModule} from './api/anonymous-incident/anonymous-incident.module';
 import { ExternalSecurityModule } from './api/external-security/external-security.module';
 import { EventModule } from './event/event.module';
-import {ExternalEventModule} from "./api/external-events/external-event.module";
+import {ExternalEventModule} from './api/external-events/external-event.module';
 import {database_config, database_test_config} from './config';
 
 let config = database_config;

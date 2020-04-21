@@ -1,7 +1,7 @@
-import { BaseEntity, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, PrimaryColumn, Entity, ManyToMany, JoinTable} from "typeorm";
-import { ServiceApi } from "../../api/service_api/service_api.entity";
+import { BaseEntity, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, PrimaryColumn, Entity, ManyToMany} from 'typeorm';
+import { ServiceApi } from '../../api/service_api/service_api.entity';
 import { EventEntity } from '../../event/event.entity';
-import {ApiProperty} from "@nestjs/swagger";
+import {ApiProperty} from '@nestjs/swagger';
 
 @Entity()
 export class User extends BaseEntity {
